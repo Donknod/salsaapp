@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+  <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script> 
+ <script src="http://firebase.github.io/angularFire/angularFire.js"></script>
+  <script src="controller.js" type="text/javascript"></script>  
+</head>
+<body ng-app="myapp">
+
+
+  <div ng-controller="MyCtrl">
+    <div ng-hide="info.id" id="loginDiv">
+      <a href="#" ng-click="onLoginButtonClicked()" id="login">Login</a>
+    </div>
+    <div ng-show="info.id" id="logoutDiv">
+      <a href="#" ng-click="logout()" id="logout">Logout</a>
+    </div>
+
+    <div ng-show="info.id">
+      <p>
+	Customers so far:
+      </p>
+      <table class="table">
+	<tbody ng-display="" ng-repeat="customer in items">
+	  <tr>
+	    <td>{{customer.firstname}}</td>
+	    <td>{{customer.lastname}}</td>
+	  </tr>
+	</tbody>
+      </table>
+      <p>
+	Your First Name: 
+	<input ng-model="firstname"/>
+      </p>
+      <p>
+	Your Last Name: 
+	<input ng-model="lastname"/>
+      </p>
+      <button ng-click="updateUser()" >Update</button>
+    </div>
+  </div>
+</body>
+</html>
