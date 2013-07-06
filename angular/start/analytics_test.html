@@ -1,0 +1,13 @@
+<!doctype html>
+<html >
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+      <script src="../lib/angular-google-analytics.js"></script>
+      <script src="analytics-test-controller.js"></script>
+  </head>
+  <body ng-app="analyticsApp">
+    <div ng-controller="AnalyticsController">
+        <button ng-click="track()">Track event</button>
+    </div>
+  </body>
+</html>
