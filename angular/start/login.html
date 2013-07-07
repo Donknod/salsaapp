@@ -13,17 +13,15 @@
 
 
   <div ng-controller="MyCtrl">
-    <div ng-hide="info.id" id="loginDiv">
-      <a href="#" ng-click="onLoginButtonClicked()" id="login">Login</a>
+    <div ng-hide="userid" id="loginDiv">
+      <a href="#" ng-click="login()" id="login">Login</a>
     </div>
-    <div ng-show="info.id" id="logoutDiv">
+    <div ng-show="userid" id="logoutDiv">
       <a href="#" ng-click="logout()" id="logout">Logout</a>
     </div>
 
-    <div ng-show="info.id">
-      <p>
-	Customers so far:
-      </p>
+    <div ng-show="userid">
+      <h1>Registered customers</h1>
       <table class="table">
 	<tbody ng-display="" ng-repeat="customer in users">
 	  <tr>
@@ -32,15 +30,17 @@
 	  </tr>
 	</tbody>
       </table>
-      <p>
-	Your First Name: 
-	<input ng-model="firstname"/>
-      </p>
-      <p>
-	Your Last Name: 
-	<input ng-model="lastname"/>
-      </p>
-      <button ng-click="updateUser()" >Update</button>
+      <h2>Edit Your Name</h2>
+      <table class="table">
+	<tr>
+	  <th>First Name</th>
+	  <td><input ng-model="user.firstname"/></td>
+	</tr>
+	<tr>
+	  <th>Last Name</th>
+	  <td><input ng-model="user.lastname"/></td>
+	</tr>
+      </table>
     </div>
   </div>
 </body>
