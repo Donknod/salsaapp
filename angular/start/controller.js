@@ -3,46 +3,26 @@ var myapp = angular.module('myapp', ['firebase']);
 function MyCtrl($scope,
 		angularFire) {
     var usersUrl = 'https://salsaapp.firebaseio.com/users';
-    angularFire(usersUrl, $scope, 'users', [])
-.then(function() {
-    $scope.users.forEach(function(user) {
-	console.log("name name is " + JSON.stringify(user))
-	console.log("This is Sjur " + $scope.users['0'].firstname);
-    })
-});
-    var peopleUrl = 'https://salsaapp.firebaseio.com/people';
-
-/*
-    $scope.items.foreEach(function(cus) {
-	console.log("Have a customer with firstname " + cus.firstname);
-    });
-*/
-      
-    $scope.updateUser = function() {
-	var customer = {};
-	customer.firstname = $scope.firstname;
-	customer.lastname = $scope.lastname;
-	//$scope.users.push(customer);
-    }
-
+    angularFire(usersUrl, $scope, 'users',{})
+	.then(function() {
+	});
+    
     $scope.addUser = function(id) {
-	var customer = {};
-	$scope.users
-	// TODO(lea): Add people
+	if (!id) { 
+	    id = $scope.userid.toString()
+	}
+	console.log("Adding user with id " + id);
     }
-
-//    $scope.remove = function(customer) {
-//	var index = $scope.items.indexOf(customer);
-//	$scope.items.splice(index,1);
-//    }
 
     $scope.userLoggedIn = function(userId) {
 	$scope.userid = userId;
-	/*
-	if ( ! $scope.users[userId]) {
-	    $scope.addUser(userId);
-	}
-*/
+	angularFire(usersUrl + "/" + userId.toString(), $scope, 'user',{})
+	    .then(function() {
+		// Add if new user
+		if ( ! $scope.user || Object.keys($scope.user).length === 0) {
+		    $scope.addUser(userId)
+		} 
+	    });
     }
 
     var firebase = new Firebase("https://salsaapp.firebaseio.com/");
@@ -60,13 +40,13 @@ function MyCtrl($scope,
 	    
 	} else {
 	    // user is logged out
-	    delete $scope.info 
+	    $scope.userid = null;
 	    console.log("Logged out");
 	}
     });
 
     // perform the login (to Facebook in this case)
-    $scope.onLoginButtonClicked = function() {
+    $scope.login = function() {
 	authClient.login('facebook');
     }
 
